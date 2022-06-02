@@ -13,31 +13,26 @@ import 'package:provider/provider.dart';
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
+  static const String _title = 'Evolution.org';
+
   @override
   State<LoginPage> createState() => _LoginPage();
 }
 
 class _LoginPage extends State<LoginPage> {
-  final _nomeFocus = FocusNode();
-  final _sobrenomeFocus = FocusNode();
-  final _cargoFocus = FocusNode();
-  final _experienciaFocus = FocusNode();
   final _emailFocus = FocusNode();
   final _senhaFocus = FocusNode();
-  final _tipoUsuario = FocusNode();
+
   final _formKey = GlobalKey<FormState>();
   final _formData = Map<String, Object>();
+  static const colorText = Color.fromARGB(255, 100, 100, 100);
 
   @override
   void dispose() {
     super.dispose();
-    _nomeFocus.dispose();
-    _sobrenomeFocus.dispose();
-    _cargoFocus.dispose();
-    _experienciaFocus.dispose();
+
     _emailFocus.dispose();
     _senhaFocus.dispose();
-    _tipoUsuario.dispose();
   }
 
   void _submitForm() {
@@ -59,64 +54,159 @@ class _LoginPage extends State<LoginPage> {
     }
   }
 
+  var textCad = RichText(
+    text: const TextSpan(
+      // Note: Styles for TextSpans must be explicitly defined.
+      // Child text spans will inherit styles from parent
+      style: TextStyle(
+        fontSize: 22.0,
+        color: colorText,
+      ),
+      children: <TextSpan>[
+        TextSpan(text: 'Sou '),
+        TextSpan(
+            text: 'gestor ', style: TextStyle(fontWeight: FontWeight.bold)),
+        TextSpan(text: 'e '),
+        TextSpan(
+            text: 'não tenho conta ',
+            style: TextStyle(fontWeight: FontWeight.bold)),
+      ],
+    ),
+  );
+
+  var textLogin = RichText(
+    text: const TextSpan(
+      // Note: Styles for TextSpans must be explicitly defined.
+      // Child text spans will inherit styles from parent
+      style: TextStyle(
+        fontSize: 22.0,
+        color: colorText,
+      ),
+      children: <TextSpan>[
+        TextSpan(text: 'Já '),
+        TextSpan(
+            text: 'tenho conta ', style: TextStyle(fontWeight: FontWeight.bold))
+      ],
+    ),
+  );
+
+  var textEnter = RichText(
+    text: const TextSpan(
+      // Note: Styles for TextSpans must be explicitly defined.
+      // Child text spans will inherit styles from parent
+      style: TextStyle(
+        fontSize: 28.0,
+        color: colorText,
+      ),
+      children: <TextSpan>[
+        TextSpan(text: 'Olá, seja bem vindx ao '),
+        TextSpan(
+            text: 'Evolution.org! ',
+            style: TextStyle(
+                color: Color(0xffffd1c7), fontWeight: FontWeight.bold))
+      ],
+    ),
+  );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(15.0),
+        padding: const EdgeInsets.fromLTRB(10, 50, 10, 0),
         child: Form(
           key: _formKey,
           child: ListView(
             children: [
-              TextFormField(
-                initialValue: _formData['email']?.toString(),
-                decoration: InputDecoration(labelText: 'Email: '),
-                textInputAction: TextInputAction.next,
-                onFieldSubmitted: (_) {
-                  FocusScope.of(context).requestFocus(_senhaFocus);
-                },
-                onSaved: (email) => _formData['email'] = email ?? '',
-                validator: (_email) {
-                  final email = _email ?? '';
-                  if (email.trim().isEmpty) {
-                    return 'Informe o email do liderado.';
-                  }
-
-                  return null;
-                },
+              Container(
+                padding: const EdgeInsets.all(10),
+                child: textEnter,
               ),
-              TextFormField(
-                initialValue: _formData['senha']?.toString(),
-                decoration: InputDecoration(labelText: 'Senha: '),
-                textInputAction: TextInputAction.next,
-                onFieldSubmitted: (_) {
-                  FocusScope.of(context).requestFocus(_cargoFocus);
-                },
-                onSaved: (senha) => _formData['senha'] = senha ?? '',
-                validator: (_senha) {
-                  final senha = _senha ?? '';
-                  if (senha.trim().isEmpty) {
-                    return 'Informe a senha do liderado.';
-                  }
-
-                  return null;
-                },
+              Container(
+                padding: const EdgeInsets.fromLTRB(10, 70, 10, 0),
+                child: textLogin,
               ),
-              TextButton.icon(
-                onPressed: _submitForm,
-                icon: Icon(Icons.send_to_mobile),
-                label: Text(
-                  'Salvar',
+              Container(
+                padding: const EdgeInsets.all(10),
+                child: TextFormField(
+                  initialValue: _formData['email']?.toString(),
+                  decoration: InputDecoration(labelText: 'Email: '),
+                  textInputAction: TextInputAction.next,
+                  onFieldSubmitted: (_) {
+                    FocusScope.of(context).requestFocus(_senhaFocus);
+                  },
+                  onSaved: (email) => _formData['email'] = email ?? '',
+                  validator: (_email) {
+                    final email = _email ?? '';
+                    if (email.trim().isEmpty) {
+                      return 'Informe o email';
+                    }
+
+                    return null;
+                  },
                 ),
               ),
-              TextButton.icon(
-                onPressed: () => Navigator.of(context)
-                    .popAndPushNamed(AppRoutes.CADASTRO_FORM),
-                icon: Icon(Icons.send),
-                label: Text(
-                  'Cadastrar',
+              Container(
+                padding: const EdgeInsets.all(10),
+                child: TextFormField(
+                  initialValue: _formData['senha']?.toString(),
+                  decoration: InputDecoration(labelText: 'Senha: '),
+                  textInputAction: TextInputAction.done,
+                  onFieldSubmitted: (_) {
+                    FocusScope.of(context).requestFocus;
+                  },
+                  onSaved: (senha) => _formData['senha'] = senha ?? '',
+                  validator: (_senha) {
+                    final senha = _senha ?? '';
+                    if (senha.trim().isEmpty) {
+                      return 'Informe a senha';
+                    }
+
+                    return null;
+                  },
                 ),
               ),
+              Container(
+                  height: 70,
+                  padding: const EdgeInsets.fromLTRB(50, 30, 50, 0),
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Color(0xff8798D6)),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                        ))),
+                    child: const Text(
+                      'Entrar',
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    onPressed: _submitForm,
+                  )),
+              Container(
+                  padding: const EdgeInsets.fromLTRB(10, 70, 10, 0),
+                  child: textCad),
+              Container(
+                  height: 70,
+                  padding: const EdgeInsets.fromLTRB(50, 30, 50, 0),
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Color(0xff8798D6)),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                        ))),
+                    child: const Text(
+                      'Cadastrar',
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    onPressed: () => Navigator.of(context)
+                        .popAndPushNamed(AppRoutes.CADASTRO_FORM),
+                  )),
             ],
           ),
         ),

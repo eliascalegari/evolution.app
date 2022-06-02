@@ -1,4 +1,5 @@
 import 'package:evolution_app/pages/cadastro_form_page.dart';
+import 'package:evolution_app/pages/create_group_page.dart';
 import 'package:evolution_app/pages/gestor/comentarios/comentario_detalhes_page.dart';
 import 'package:evolution_app/pages/gestor/comentarios/lista_comentarios_page.dart';
 import 'package:evolution_app/pages/gestor/grupos/grupo_form_page.dart';
@@ -62,6 +63,7 @@ class MyApp extends StatelessWidget {
           AppRoutes.HOME_PAGE: (ctx) => HomePage(),
           AppRoutes.CADASTRO_FORM: (ctx) => CadastroFormPage(),
           AppRoutes.LOGIN_PAGE: (ctx) => LoginPage(),
+          AppRoutes.CREATE_GROUP_PAGE: (ctx) => CreateGroupPage(),
 
           //AppRoutes.GESTOR_DETALHES: (ctx) => GestorDetalhesPage(),
         },

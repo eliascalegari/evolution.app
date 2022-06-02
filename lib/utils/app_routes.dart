@@ -12,6 +12,7 @@ class AppRoutes {
   static const COMENTARIO_FORM = '/comentario-form';
   static const CADASTRO_FORM = '/cadastro-form';
   static const LOGIN_PAGE = '/login-page';
+  static const CREATE_GROUP_PAGE = '/create-group-page';
 
   //static const GESTOR_DETALHES = 'gestor-detalhes';
 }
